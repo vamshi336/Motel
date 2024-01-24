@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travelodge</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
+    <!-- Add this line in the head section of your HTML -->
+    <script src="{{ url_for('static', filename='styles/styles.js') }}"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Travelodge</h1>
+
+        <!-- Left Column -->
+        <div class="left-column">
+            <form method="GET" action="/room_range">
+                <label for="start">Start Room:</label>
+                <input type="number" id="start" name="start" min="101" max="499" required>
+
+                <label for="end">End Room:</label>
+                <input type="number" id="end" name="end" min="101" max="499" required>
+
+                <label for="series">ODD or even Room:</label>
+                <input type="text" id="series" name="series" placeholder="even/odd" required>
+
+                <button type="submit">Apply</button>
+            </form>
+        </div>
+
+        <!-- Right Column -->
+        <div class="right-column">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter Name" required>
+
+            <label for="startTime">Start Time:</label>
+            <input type="time" id="startTime" name="startTime" required>
+
+            <label for="endTime">End Time:</label>
+            <input type="time" id="endTime" name="endTime" required>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <!-- Your table headers -->
+                    <th>Room</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Verify</th>
+                    <th>Bath</th>
+                    <th>Mirror</th>
+                    <th>Bed</th>
+                    <th>Polish Furn</th>
+                    <th>Lamps</th>
+                    <th>Trash Can</th>
+                    <th>Adds</th>
+                    <th>Mico Fridge</th>
+                    <th>Vac</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in room_list %}
+                    <tr>
+                        <!-- Your table data -->
+                        <td>{{ entry['Room Number'] }}</td>
+                        <td>{{ entry['Room Type'] }}</td>
+                        <td>{{ entry['Reservation Status'] }}</td>
+                        <td>{{ entry[''] }}</td>
+                        <td>{{ entry[''] }}</td>
+                        <td>{{ entry[''] }}</td>
+                        <td>{{ entry[''] }}</td>
+                        <td>{{ entry[''] }}</td>
+                        <td>{{ entry[''] }}</td>
+                        <td>{{ entry[''] }}</td>
+                        <td>{{ entry[''] }}</td>
+                        <td>{{ entry[''] }}</td>
+                        <td>{{ entry[''] }}</td>
+                        <td>{{ entry[''] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
