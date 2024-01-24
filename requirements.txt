@@ -1,1 +1,4 @@
+gunicorn==<version>
+# Other dependencies...
+
 
