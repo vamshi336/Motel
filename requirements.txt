@@ -1,5 +1,6 @@
 Flask==2.1.0
 Werkzeug==2.1.0
+pdfplumber==0.5.28  # Adjust the version as needed
 
 
 gunicorn==20.1.0
