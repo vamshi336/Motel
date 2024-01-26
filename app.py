@@ -37,6 +37,8 @@ def modify_room_type(room_extracted_list):
       room['Reservation Status'] = 'SO'
     elif room.get('Reservation Status') == 'Due':
       room['Reservation Status'] = 'DO'
+    elif room.get('Reservation Status') == 'Not Reserved':
+      room['Reservation Status'] = 'OUT'
     else:
       room['Reservation Status'] = 'DV'
   return room_extracted_list  # Corrected variable name
