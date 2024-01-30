@@ -37,13 +37,11 @@ def modify_room_type(room_extracted_list):
       room['Reservation Status'] = 'SO'
     elif room.get('Reservation Status') == 'Due':
       room['Reservation Status'] = 'DO'
-    elif room.get('Reservation Status') == 'Not Reserved':
+    elif room.get('Reservation Status') == 'Order':
       room['Reservation Status'] = 'OUT'
     else:
       room['Reservation Status'] = 'DV'
   return room_extracted_list  # Corrected variable name
-
-
 def extract_room_status(file_like_object):
   with pdfplumber.open(file_like_object) as pdf:
     text = ""
@@ -51,17 +49,27 @@ def extract_room_status(file_like_object):
       page = pdf.pages[page_num]
       text += page.extract_text()
 
-  room_status_pattern = re.compile(
-      r'(\d{3,4})\s+(\w+)\s+Dirty\s+(\w+)\s+(\w+)')
-  matches = room_status_pattern.findall(text)
+  # Split the text into lines
+  lines = text.split('\n')
 
-  room_status_list = [{
-      'Room Number': match[0],
-      'Room Type': match[1],
-      'Reservation Status': match[3]
-  } for match in matches]
+  # Define a pattern for extracting relevant information
+  pattern = re.compile(r'(\d{3,4})\s+(\w+)\s+(\w+)\s+(\w+)\s+(\w+)')
 
-  return room_status_list
+  # Extract room-related information based on the defined pattern
+  room_info_list = []
+  for line in lines:
+    match = pattern.search(line)
+    if match:
+      room_info_list.append({
+          'Room Number': match.group(1),
+          'Room Type': match.group(2),
+          'Room Status': match.group(3),
+          'AM/PM Section': match.group(4),
+          'Reservation Status': match.group(5)
+      })
+  return room_info_list
+
+
 
 
 @app.route('/upload', methods=['GET', 'POST'])
